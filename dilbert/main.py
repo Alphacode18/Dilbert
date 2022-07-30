@@ -1,6 +1,8 @@
-import logging
 import os
 import re
+import logging
+import requests
+import shortuuid
 
 from dotenv import load_dotenv
 from slack_bolt import App
@@ -16,20 +18,24 @@ logger = logging.getLogger(__name__)
 
 
 @app.message(re.compile("doi"))  # type: ignore
-def show_random_joke(message, say):
+def doi_listener(message, say):
     # channel_type = message["channel_type"]
-    # channel = message["channel"]
+    channel = message["channel"]
     blocks = message["blocks"]
     for block in blocks:
         for block_elements in block["elements"]:
             for element in block_elements["elements"]:
                 if element["type"] == "link":
                     url = element["url"]
-                    print(url)
+                    data = requests.get(url)
+                    name = shortuuid.uuid(name=url) + ".pdf"
+                    with open(name, "wb") as output:
+                        output.write(data.content)
+    say(text=f"Processed as {name}", channel=channel)
 
 
 @app.message(re.compile(".*"))
-def default(message, say):
+def catch_all(message, say):
     # channel_type = message["channel_type"]
     channel = message["channel"]
     say(text="Hi, I don't know what to do with this", channel=channel)
