@@ -2,7 +2,6 @@ import logging
 import os
 import re
 
-import validators
 from dotenv import load_dotenv
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
@@ -25,7 +24,15 @@ def show_random_joke(message, say):
         for block_elements in block["elements"]:
             for element in block_elements["elements"]:
                 if element["type"] == "link":
-                    print(element["url"])
+                    url = element["url"]
+                    print(url)
+
+
+@app.message(re.compile(".*"))
+def default(message, say):
+    # channel_type = message["channel_type"]
+    channel = message["channel"]
+    say(text="Hi, I don't know what to do with this", channel=channel)
 
 
 def main():
