@@ -14,10 +14,11 @@ SLACK_APP_TOKEN = os.environ["SLACK_APP_TOKEN"]
 SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
 
 app = App(token=SLACK_BOT_TOKEN, name="Dilbert")
+
 logger = logging.getLogger(__name__)
 
 
-@app.message(re.compile("doi"))  # type: ignore
+@app.message(re.compile("doi"))
 def doi_listener(message, say):
     # channel_type = message["channel_type"]
     channel = message["channel"]
