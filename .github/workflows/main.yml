@@ -6,7 +6,7 @@ on:
 jobs:
 
   deploy_source:
-    name: lambda-cd
+    name: dilbert
     runs-on: ubuntu-latest
     steps:
       - name: checkout source code
