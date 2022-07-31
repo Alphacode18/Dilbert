@@ -1,0 +1,34 @@
+name: run-integration
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  run-integration:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: "3.8.13"
+    steps:
+      - name: checkout source code
+        uses: actions/checkout@v3
+      - name: set up python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: install poetry
+        uses: snok/install-poetry@v1
+      - name: install library
+        run: poetry install
+      - name: lint source code
+        uses: psf/black@stable
+        with:
+          options: "--check --verbose"
+          src: "."
+      - name: run tests
+        uses: |
+          poetry run python -m pytest 
+
+
