@@ -11,7 +11,11 @@ jobs:
     steps:
       - name: checkout source code
         uses: actions/checkout@v2
-      - name: default deploy
+      - name: set up Python 3.8.13
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8.13
+      - name: lambda deploy
         uses: Alphacode18/dilbert@master
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
