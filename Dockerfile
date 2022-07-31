@@ -16,4 +16,4 @@ COPY . .
 
 RUN poetry install
 
-CMD ["poetry", "run", "start-bot"]
+ENTRYPOINT [ "poetry", "run", "start-bot"]
