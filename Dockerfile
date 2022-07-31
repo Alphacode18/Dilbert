@@ -16,4 +16,6 @@ COPY . .
 
 RUN poetry install
 
+SHELL ["/bin/bash", "-c", "source /root/.cache/pypoetry/virtualenvs/dilbert-i42BFgDb-py3.8"]
+
 ENTRYPOINT [ "poetry", "run", "start-bot"]
