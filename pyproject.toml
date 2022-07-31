@@ -8,7 +8,7 @@ authors = ["Alphacode18 <skharban@purdue.edu>"]
 start-bot = "dilbert.main:main"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.8"
 slack-sdk = "^3.18.1"
 slack-bolt = "^1.14.3"
 python-dotenv = "^0.20.0"

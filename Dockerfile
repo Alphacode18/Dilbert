@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.8.13-buster
 
 RUN set -xe
 
@@ -8,9 +8,11 @@ ENV PATH="/root/.local/bin:$PATH"
 
 RUN poetry --version
 
-COPY . .
+RUN mkdir -p /home/app/dilbert
 
-WORKDIR dilbert
+WORKDIR /home/app/dilbert
+
+COPY . .
 
 RUN poetry install
 
