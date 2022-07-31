@@ -28,7 +28,7 @@ jobs:
           options: "--check --verbose"
           src: "."
       - name: run tests
-        uses: |
+        run: |
           poetry run python -m pytest 
 
 
