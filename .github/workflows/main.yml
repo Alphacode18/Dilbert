@@ -1,25 +1,49 @@
 name: pipeline
-on:
+
+on: 
   push:
     branches:
-      - master
-jobs:
+      - main
 
-  deploy_source:
-    name: dilbert
+jobs:
+  deploy:
     runs-on: ubuntu-latest
+    
     steps:
       - name: checkout source code
-        uses: actions/checkout@v2
-      - name: set up Python 3.8.13
+      - uses: actions/checkout@v1
+
+      - name: Set up Python 3.8.13
         uses: actions/setup-python@v1
         with:
           python-version: 3.8.13
-      - name: lambda deploy
-        uses: Alphacode18/dilbert@master
+
+      - name: Install Poetry
+        uses: dschep/install-poetry-action@v1.2
+
+      - name: Cache Poetry virtualenv
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: ~/.virtualenvs
+          key: poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            poetry-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Set Poetry config
+        run: |
+          poetry config settings.virtualenvs.in-project false
+          poetry config settings.virtualenvs.path ~/.virtualenvs
+
+      - name: Install Dependencies
+        run: poetry install
+        if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: default deploy
+        uses: Alphacode18/Dilbert@master
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: Dilbert
-          source: dilbert
+          source: dilbert/main.py
