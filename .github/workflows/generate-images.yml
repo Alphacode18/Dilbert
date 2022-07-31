@@ -1,4 +1,4 @@
-name: docker image
+name: generate-images
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - 'master'
 
 jobs:
-  docker:
+  generate-images:
     runs-on: ubuntu-latest
     steps:
       -
