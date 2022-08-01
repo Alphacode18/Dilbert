@@ -1,16 +1,15 @@
 name: run-integration
 
 on:
-  # pull_request:
-  #   branches:
-  #     - "master"
-  push:
+  pull_request:
+     branches:
+       - "master"
 
 jobs:
   run-integration:
     runs-on: ubuntu-latest
     strategy:
-      matrix: { dir: ["dilbert", "bot"] }
+      matrix: { dir: ["dilbert"] }
     defaults:
       run:
         working-directory: ${{ matrix.dir }}

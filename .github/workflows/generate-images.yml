@@ -2,12 +2,14 @@ name: generate-images
 
 on:
   push:
+    branches:
+      - master
 
 jobs:
   generate-images:
     runs-on: ubuntu-latest
     strategy:
-      matrix: { dir: ["dilbert", "bot"] }
+      matrix: { dir: ["dilbert"] }
     steps:
       - name: checkout source code
         uses: actions/checkout@v3
