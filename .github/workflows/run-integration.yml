@@ -10,7 +10,7 @@ jobs:
   run-integration:
     runs-on: ubuntu-latest
     strategy:
-      matrix: { dir: ["dilbert"] }
+      matrix: { dir: ["dilbert", "bot"] }
     defaults:
       run:
         working-directory: ${{ matrix.dir }}

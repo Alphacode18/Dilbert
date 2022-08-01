@@ -7,7 +7,7 @@ jobs:
   generate-images:
     runs-on: ubuntu-latest
     strategy:
-      matrix: { dir: ["dilbert"] }
+      matrix: { dir: ["dilbert", "bot"] }
     steps:
       - name: checkout source code
         uses: actions/checkout@v3
