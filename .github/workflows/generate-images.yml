@@ -3,7 +3,7 @@ name: generate-images
 on:
   push:
     branches:
-      - "master"
+      - "refactor/monorepo"
 
 jobs:
   generate-images:
