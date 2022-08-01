@@ -1,12 +1,10 @@
-name: generate-images
+name: dockerize-dilbert
 
 on:
   push:
-    branches:
-      - "refactor/monorepo"
 
 jobs:
-  generate-images:
+  dockerize-dilbert:
     runs-on: ubuntu-latest
     steps:
       - name: checkout source code
@@ -24,4 +22,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
+          context: "dilbert/dilbert"
           tags: skharban/dilbert:latest
