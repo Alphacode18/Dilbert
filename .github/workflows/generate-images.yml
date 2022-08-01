@@ -3,12 +3,16 @@ name: generate-images
 on:
   push:
     branches:
-      - 'master'
+      - master
 
 jobs:
   generate-images:
     runs-on: ubuntu-latest
+    strategy:
+      matrix: { dir: ["dilbert"] }
     steps:
+      - name: checkout source code
+        uses: actions/checkout@v3
       - name: set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: set up Docker Buildx
@@ -22,4 +26,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
+          context: ${{ matrix.dir }}
           tags: skharban/dilbert:latest
