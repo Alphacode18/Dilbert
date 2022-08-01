@@ -1,15 +1,19 @@
 name: run-integration
 
 on:
-  pull_request:
-    branches:
-      - "master"
+  # pull_request:
+  #   branches:
+  #     - "master"
+  push:
 
 jobs:
   run-integration:
     runs-on: ubuntu-latest
     strategy:
       matrix: { dir: ["dilbert"] }
+    defaults:
+      run:
+        working-directory: ${{ matrix.dir }}
     steps:
       - name: checkout source code
         uses: actions/checkout@v3
