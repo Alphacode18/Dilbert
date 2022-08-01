@@ -3,11 +3,13 @@ name: run-integration
 on:
   pull_request:
     branches:
-      - 'master'
+      - "master"
 
 jobs:
   run-integration:
     runs-on: ubuntu-latest
+    strategy:
+      matrix: { dir: ["dilbert"] }
     steps:
       - name: checkout source code
         uses: actions/checkout@v3
@@ -26,6 +28,4 @@ jobs:
           src: "."
       - name: run tests
         run: |
-          poetry run python -m pytest 
-
-
+          poetry run python -m pytest
